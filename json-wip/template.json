@@ -1,0 +1,77 @@
+{
+  "builders": [{
+    "type": "virtualbox-iso",
+    "boot_command": [
+      "<enter><f6><esc>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs><bs><bs>",
+      "<bs><bs><bs>",
+      "auto preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+      "debian-installer=en_CA locale=en_CA kbd-chooser/method=us ",
+      "hostname=rails-5 ",
+      "fb=false debconf/frontend=noninteractive ",
+      "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+      "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+      "vga=788 initrd=/install/initrd.gz quiet --- ",
+      "<enter>"
+    ],
+    "boot_wait": "4s",
+    "guest_os_type": "Ubuntu_64",
+    "http_directory": "http",
+    "iso_checksum": "d2d939ca0e65816790375f6826e4032f",
+    "iso_checksum_type": "md5",
+    "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.1-server-amd64.iso",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_wait_timeout": "10000s",
+    "disk_size": "8000",
+    "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+    "vboxmanage": [
+      [
+        "modifyvm",
+        "{{.Name}}",
+        "--memory",
+        "512"
+      ],
+      [
+        "modifyvm",
+        "{{.Name}}",
+        "--cpus",
+        "1"
+      ],
+      [
+        "guestproperty",
+        "set",
+        "{{.Name}}",
+        "--timesync-set-on-restore",
+        "1"
+      ]
+    ]
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "script": "build-vagrantbox.sh"
+  }],
+  "post-processors": [
+    {
+        "type": "vagrant",
+        "only": ["virtualbox-iso"],
+        "output": "vbox-ubuntu16.04.1.iso",
+        "vagrantfile_template": "Vagrantfile-template"
+    }
+  ]
+}
