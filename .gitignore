@@ -9,3 +9,4 @@ package.box
 **/*.swp
 **/*.iso
 build/**/*
+gemfile.lock
