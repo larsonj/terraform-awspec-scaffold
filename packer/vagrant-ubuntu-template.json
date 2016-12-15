@@ -22,7 +22,7 @@
       "<bs><bs><bs>",
       "auto preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
       "debian-installer=en_CA locale=en_CA kbd-chooser/method=us ",
-      "hostname=rails-5 ",
+      "hostname=dockerhost ",
       "fb=false debconf/frontend=noninteractive ",
       "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
       "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
@@ -64,14 +64,14 @@
   }],
   "provisioners": [{
     "type": "shell",
-    "script": "build.sh"
+    "script": "build-vagrant-ubuntu-dockerHost-template.sh"
   }],
   "post-processors": [
     {
         "type": "vagrant",
         "only": ["virtualbox-iso"],
-        "output": "ubuntu16.04.1-dockerhost.box",
-        "vagrantfile_template": "Vagrantfile-template"
+        "output": "vbox-dockerhost-ubuntu16.04.1.iso",
+        "vagrantfile_template": "Vagrantfile-vagrant-ubuntu-dockerhost-template"
     }
   ]
 }
