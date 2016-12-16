@@ -1,5 +1,19 @@
 /cloud_provisioning/*
-.vagrant
+.DS_Store
+terraform.tfplan
+terraform.tfstate
+.vagrant/
+.bundle
+node_modules/
+build
+*.backup
+.terraform
+.idea
+.*.swp
+*.iml
+*.test
+*.exe
+*.dll
 authorized_keys
 build/Vagrantfile
 packer_cache/
@@ -10,3 +24,4 @@ package.box
 *.iso
 build/*
 cloud-provisioning/*
+*/tf_aws_vpc/
