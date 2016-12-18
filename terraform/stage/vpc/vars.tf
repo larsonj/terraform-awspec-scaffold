@@ -1,6 +1,6 @@
 
 variable "project-name" {
-   default = "bi.net"
+   default = "blurredimages"
 }
 variable "env" {
    default = "stage"

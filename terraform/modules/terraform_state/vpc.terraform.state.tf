@@ -5,17 +5,6 @@ provider "aws" {
    region = "us-east-1"
 }
 
-resource "aws_s3_bucket" "terraform_state" {
-  bucket = "${var.bucket}"
-
-  versioning {
-    enabled = true
-  }
-
-  lifecycle {
-    #prevent_destroy = true
-  }
-}
 /***
 data "terraform_remote_state" "foo" {
     backend = "s3"
@@ -27,3 +16,18 @@ data "terraform_remote_state" "foo" {
     }
 }
 ***/
+
+resource "aws_s3_bucket" "terraform_state" {
+   bucket = "${var.bucket}"
+   force_destroy = true
+   region = "${var.region}"
+
+   versioning {
+      enabled = true
+   }
+# todo: turn on prevent_destroy = true
+  lifecycle {
+    prevent_destroy = false
+  }
+
+}
