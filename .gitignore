@@ -1,4 +1,4 @@
-/cloud_provisioning/*
+cloud_provisioning/*
 .DS_Store
 terraform.tfplan
 terraform.tfstate
